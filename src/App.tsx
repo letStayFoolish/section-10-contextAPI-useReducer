@@ -4,6 +4,7 @@ import Header from "./components/Header.tsx";
 import Shop from "./components/Shop.tsx";
 import { DUMMY_PRODUCTS } from "./dummy-products.ts";
 import type { CartType } from "./types";
+import Product from "./components/Product.tsx";
 
 const App: React.FC = () => {
   const [shoppingCart, setShoppingCart] = useState<CartType>({
@@ -73,7 +74,13 @@ const App: React.FC = () => {
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
       />
-      <Shop onAddItemToCart={handleAddItemToCart} />
+      <Shop>
+        {DUMMY_PRODUCTS.map((product) => (
+          <li key={product.id}>
+            <Product {...product} onAddToCart={handleAddItemToCart} />
+          </li>
+        ))}
+      </Shop>
     </>
   );
 };
