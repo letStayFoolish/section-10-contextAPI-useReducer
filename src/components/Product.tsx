@@ -1,4 +1,5 @@
 import React from "react";
+import { useCartContext } from "../store/shopping-cart-context.ts";
 
 type Props = {
   id: string;
@@ -6,17 +7,11 @@ type Props = {
   title: string;
   price: number;
   description: string;
-  onAddToCart: (id: string) => void;
 };
 
-const Product: React.FC<Props> = ({
-  id,
-  image,
-  title,
-  price,
-  description,
-  onAddToCart,
-}) => {
+const Product: React.FC<Props> = ({ id, image, title, price, description }) => {
+  const { addItemToCart } = useCartContext();
+
   return (
     <article className="product">
       <img src={image} alt={title} />
@@ -27,7 +22,7 @@ const Product: React.FC<Props> = ({
           <p>{description}</p>
         </div>
         <p className="product-actions">
-          <button onClick={() => onAddToCart(id)}>Add to Cart</button>
+          <button onClick={() => addItemToCart(id)}>Add to Cart</button>
         </p>
       </div>
     </article>

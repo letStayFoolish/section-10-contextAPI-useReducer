@@ -1,12 +1,15 @@
 import React from "react";
 import type { CartItemType } from "../types";
+import { useCartContext } from "../store/shopping-cart-context.ts";
 
 type Props = {
   items: CartItemType[];
   onUpdateItemQuantity: (productId: string, amount: number) => void;
 };
 
-const Cart: React.FC<Props> = ({ items, onUpdateItemQuantity }) => {
+const Cart: React.FC<Props> = ({ onUpdateItemQuantity }) => {
+  const { items } = useCartContext();
+
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,

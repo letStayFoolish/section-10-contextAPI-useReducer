@@ -5,6 +5,7 @@ import Shop from "./components/Shop.tsx";
 import { DUMMY_PRODUCTS } from "./dummy-products.ts";
 import type { CartType } from "./types";
 import Product from "./components/Product.tsx";
+import CartContext from "./store/shopping-cart-context.ts";
 
 const App: React.FC = () => {
   const [shoppingCart, setShoppingCart] = useState<CartType>({
@@ -68,8 +69,13 @@ const App: React.FC = () => {
     });
   }
 
+  const ctxValue = {
+    items: shoppingCart.items,
+    addItemToCart: handleAddItemToCart,
+  };
+
   return (
-    <>
+    <CartContext.Provider value={ctxValue}>
       <Header
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
@@ -77,11 +83,11 @@ const App: React.FC = () => {
       <Shop>
         {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
-            <Product {...product} onAddToCart={handleAddItemToCart} />
+            <Product {...product} />
           </li>
         ))}
       </Shop>
-    </>
+    </CartContext.Provider>
   );
 };
 
