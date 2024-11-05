@@ -1,17 +1,15 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 import CartModal from "./CartModal.tsx";
-import { CartType, ModalRef } from "../types";
+import { ModalRef } from "../types";
+import { useCartContext } from "../store/shopping-cart-context.tsx";
 
-type Props = {
-  cart: CartType;
-  onUpdateCartItemQuantity: (productId: string, amount: number) => void;
-};
-
-const Header: React.FC<Props> = ({ cart, onUpdateCartItemQuantity }) => {
+const Header: React.FC = () => {
   const dialogRef = useRef<ModalRef>(null);
 
-  const cartQuantity = cart.items.length;
+  const { items } = useCartContext();
+
+  const cartQuantity = items.length;
 
   function handleOpenCartClick() {
     dialogRef?.current?.open();
@@ -30,13 +28,7 @@ const Header: React.FC<Props> = ({ cart, onUpdateCartItemQuantity }) => {
 
   return (
     <>
-      <CartModal
-        ref={dialogRef}
-        cartItems={cart.items}
-        onUpdateCartItemQuantity={onUpdateCartItemQuantity}
-        title="Your Cart"
-        actions={modalActions}
-      />
+      <CartModal ref={dialogRef} title="Your Cart" actions={modalActions} />
       <header id="main-header">
         <div id="main-title">
           <img src="logo.png" alt="Elegant model" />

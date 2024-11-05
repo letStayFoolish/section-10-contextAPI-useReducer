@@ -1,14 +1,8 @@
 import React from "react";
-import type { CartItemType } from "../types";
-import { useCartContext } from "../store/shopping-cart-context.ts";
+import { useCartContext } from "../store/shopping-cart-context.tsx";
 
-type Props = {
-  items: CartItemType[];
-  onUpdateItemQuantity: (productId: string, amount: number) => void;
-};
-
-const Cart: React.FC<Props> = ({ onUpdateItemQuantity }) => {
-  const { items } = useCartContext();
+const Cart: React.FC = () => {
+  const { items, updateItemQuantity } = useCartContext();
 
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -31,11 +25,11 @@ const Cart: React.FC<Props> = ({ onUpdateItemQuantity }) => {
                   <span> ({formattedPrice})</span>
                 </div>
                 <div className="cart-item-actions">
-                  <button onClick={() => onUpdateItemQuantity(item.id, -1)}>
+                  <button onClick={() => updateItemQuantity(item.id, -1)}>
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => onUpdateItemQuantity(item.id, 1)}>
+                  <button onClick={() => updateItemQuantity(item.id, 1)}>
                     +
                   </button>
                 </div>

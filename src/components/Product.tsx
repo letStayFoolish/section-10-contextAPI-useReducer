@@ -1,5 +1,5 @@
 import React from "react";
-import { useCartContext } from "../store/shopping-cart-context.ts";
+import { useCartContext } from "../store/shopping-cart-context.tsx";
 
 type Props = {
   id: string;
