@@ -36,6 +36,7 @@ export function useCartContext() {
 }
 
 // Now provide this context to our application (wrapping out app or part(s) of it
+
 const CartContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [shoppingCart, setShoppingCart] = useState<CartType>({
     items: [],
